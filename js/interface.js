@@ -141,7 +141,7 @@ function load_binary() {
   if (!board_blocked) {
     binary_initialize_board();
     binary_input = document.getElementById("binary-input").value;
-    binary_load_from_string(binary_input);
+    binary_load_from_string(board_size, binary_input);
     binary_render_board();
   }
 }
