@@ -201,4 +201,4 @@ board_size = 6
 binary_initialize_board();
 binary_render_board();
 board_blocked = false;
-load_example_from_path("examples/simple1.lp");
+load_example_from_path("examples/asp1.lp");
