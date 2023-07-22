@@ -1,0 +1,159 @@
+<!--
+This file is released under the MIT license.
+See LICENSE.md.
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Solviz: Binary Puzzle</title>
+
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/posts.css">
+  <link rel="stylesheet" href="css/clingo.css">
+  <link rel="stylesheet" href="css/binary.css">
+</head>
+
+<body>
+
+  <main class="page-content" aria-label="Content">
+    <div class="wrapper">
+      <article class="post">
+
+        <header class="post-header">
+          <h1 class="post-title">Solviz: Binary Puzzle</h1>
+        </header>
+
+        <div class="post-content">
+          <div class="center">
+
+            <ul class="hlist">
+              <li>
+                <b>Example encodings:</b>
+              </li>
+              <li>
+                <select id="examples" onchange="load_example()">
+                  <optgroup label="Simple Examples">
+                    <option value="examples/simple1.lp">Simple 1</option>
+                  </optgroup>
+                </select>
+              </li>
+            </ul>
+
+            <pre id="input"></pre>
+
+            <ul class="hlist">
+              <li>
+                <b>Binary puzzle:</b>
+              </li>
+              <li>
+                <i>Board size</i>
+              </li>
+              <li>
+                <select id="board-size" onchange="change_board_size()">
+                  <option value="6">6</option>
+                  <option value="8">8</option>
+                  <option value="10">10</option>
+                  <option value="12">12</option>
+                </select>
+              </li>
+            </ul>
+            <ul class="hlist">
+              <li>
+                <input type="text" pattern="\d*" id="binary-input" value=""/>
+              </li>
+              <li>
+                <input type="button" id="load" value="Load" onclick="load_binary()"/> &nbsp;
+                <input type="button" id="clear" value="Clear" onclick="clear_binary()"/>
+              </li>
+            </ul>
+            <ul class="hlist">
+              <li>
+                <i>Example puzzles:</i>
+              </li>
+              <select id="example-puzzles" onchange="load_example_binary()">
+                <option value=""></option>
+                <optgroup label="6x6">
+                  <option value='[6,"****00*******1****01*1**0***0***1***"]'>Medium 1</option>
+                  <option value='[6,"***1****0**10***0**11*********1***0*"]'>Hard 1</option>
+                  <option value='[6,"**1***00*1**0**************1******0*"]'>Very hard 1</option>
+                </optgroup>
+                <optgroup label="8x8">
+                  <option value='[8,"****0*0*0*0*0*0*************1*1*0**0****0**00**********1*1*1****"]'>Medium 1</option>
+                  <option value='[8,"0**0*1****1****1****0*0*********************00**0***1*1**1*1***1"]'>Hard 1</option>
+                  <option value='[8,"***11**0*0***0***00*****1**************1**1*****0****************"]'>Very hard 1</option>
+                </optgroup>
+                <optgroup label="10x10">
+                  <option value='[10,"*******11***1***11********1*******0******11****1****1**1***0*****1****0***0***0**1*00**10***********"]'>Medium 1</option>
+                  <option value='[10,"**0*******0*0**1************1*******0**01*00*1****************0**1*1**1*******11***0******1***1*1*1*"]'>Hard 1</option>
+                  <option value='[10,"**0***1****1********0****11**1**0****0*1****0******1*00*1***0********0**0**0*1***1*1*****0*********1"]'>Very hard 1</option>
+                </optgroup>
+              </select>
+            </ul>
+
+            <ul class="hlist">
+              <li>
+                <b>Configuration:</b>
+              </li>
+              <li>reasoning mode
+                <select id="mode">
+                  <option selected>default</option>
+                  <option>enumerate all</option>
+                </select>
+              </li>
+              <li>
+                <label>
+                  <input type="checkbox" id="pause-on-model" checked />&nbsp;pause on model
+                </label>
+              </li>
+            </ul>
+
+            <ul class="hlist">
+              <li>
+                <i>Speed:</i>
+              </li>
+              <li>
+              <select id="speed">
+                <option value="2.0">Slow</option>
+                <option value="1.0" selected>Normal</option>
+                <option value="0.5">Fast</option>
+                <option value="0.25">Very fast</option>
+                <option value="0.1">Ultra fast</option>
+                <option value="0">Instant</option>
+              </select>
+              </li>
+            </ul>
+
+            <input type="button" id="run" value="&#x25ba; Run!" onclick="solve()" disabled/>&nbsp;
+            <input type="button" id="pause" value="Pause" onclick="do_pause()" disabled/>&nbsp;
+            <input type="button" id="resume" value="Resume" onclick="do_resume()" disabled/>
+
+            <div>&nbsp;</div>
+
+            <div id="binary" class="binary-board"></div>
+
+            <div>&nbsp;</div>
+
+            <pre id="output" class="code"></pre>
+
+          </div>
+        </div>
+
+      </article>
+    </div>
+  </main>
+
+  <script type="text/javascript" src="js/ace.js" charset="utf-8"></script>
+  <script type="text/javascript" src="js/clingo.js" charset="utf-8"></script>
+  <script type="text/javascript" src="js/clingo-module.js" charset="utf-8"></script>
+  <script type="text/javascript" src="js/binary.js" charset="utf-8"></script>
+  <script type="text/javascript" src="js/interface.js"></script>
+
+</body>
+
+</html>
