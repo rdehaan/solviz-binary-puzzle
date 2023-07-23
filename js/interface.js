@@ -107,6 +107,7 @@ function interface_on_model() {
 
 function interface_before_start() {
   console.log("Interface: before start");
+  model_found = false;
   binary_render_board();
   hidden_program = "";
   hidden_program += "#const board_size=" + board_size + ".\n"
@@ -120,7 +121,6 @@ function interface_before_start() {
   }
   decisions = Array();
   write_decisions_to_log();
-  model_found = false;
 }
 
 function watched_predicates() {
