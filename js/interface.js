@@ -34,11 +34,6 @@ function interface_propagate(lit) {
   index = decisions.findIndex(elem => (elem.type == "decision") && (elem.lit == -lit));
   if (index > -1) {
     decisions.length = index;
-    decision_obj = {
-      type: "conclusion",
-      lit: lit,
-    }
-    decisions.push(decision_obj);
     write_decisions_to_log();
   }
   console.log("Interface: propagate " + atom + " (" + lit + ")");
@@ -57,11 +52,6 @@ function interface_undo(lit) {
   var index = decisions.findIndex(elem => (elem.type == "decision") && (elem.lit == lit));
   if (index > -1) {
     decisions.length = index;
-    decision_obj = {
-      type: "conclusion",
-      lit: lit,
-    }
-    decisions.push(decision_obj);
     write_decisions_to_log();
   }
   console.log("Interface: undo " + atom + " (" + lit + ")");
@@ -88,9 +78,14 @@ function interface_check(model) {
   for (let index = 0; index < model.length; ++index) {
     atom = get_atom_from_lit(model[index]);
     if (atom != null) {
+      atom_obj = parse_binary_atom(atom);
+      if (atom_obj != null && atom_obj.positive) {
+        binary_set_cell_value(atom_obj.i, atom_obj.j, atom_obj.val);
+      }
       atoms.push(atom);
     }
   }
+  binary_render_board();
   console.log("Interface: check " + atoms);
   model_found = true;
   updateOutput();
@@ -300,20 +295,9 @@ function decision_to_text(atom) {
   atom_obj = parse_binary_atom(atom);
   if (atom_obj != null) {
     if (atom_obj.positive) {
-      return "- Choosing to put value " + atom_obj.val + " in cell R" + (atom_obj.i+1) + "C" + (atom_obj.j+1);
+      return "- Branched by putting value " + atom_obj.val + " in cell R" + (atom_obj.i+1) + "C" + (atom_obj.j+1);
     } else {
-      return "- Choosing to rule out value " + atom_obj.val + " for cell R" + (atom_obj.i+1) + "C" + (atom_obj.j+1);
-    }
-  }
-}
-
-function conclusion_to_text(atom) {
-  atom_obj = parse_binary_atom(atom);
-  if (atom_obj != null) {
-    if (atom_obj.positive) {
-      return "- Chose to exclude value " + atom_obj.val + " for cell R" + (atom_obj.i+1) + "C" + (atom_obj.j+1) + ", which led to no solution\n  so concluding that cell R" + (atom_obj.i+1) + "C" + (atom_obj.j+1) + " contains value " + atom_obj.val;
-    } else {
-      return "- Chose to put value " + atom_obj.val + " in cell R" + (atom_obj.i+1) + "C" + (atom_obj.j+1) + ", which led to no solution\n  so concluding that cell R" + (atom_obj.i+1) + "C" + (atom_obj.j+1) + " does not have value " + atom_obj.val;
+      return "- Branched by ruling out value " + atom_obj.val + " for cell R" + (atom_obj.i+1) + "C" + (atom_obj.j+1);
     }
   }
 }
@@ -331,9 +315,6 @@ function write_decisions_to_log() {
     if (decision.type == "decision") {
       log = decision_to_text(get_atom_from_lit(decision.lit)) + "..\n" + log;
     }
-    else if (decision.type == "conclusion") {
-      log = conclusion_to_text(get_atom_from_lit(decision.lit)) + "..\n" + log;
-    }
   }
   updateLog();
 }
@@ -347,7 +328,7 @@ function need_to_update_graphics() {
 }
 
 clearLog();
-addToLog("Ready...");
+write_decisions_to_log();
 
 board_size = 6
 binary_initialize_board();
