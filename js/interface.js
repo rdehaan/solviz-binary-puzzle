@@ -45,7 +45,7 @@ function interface_propagate(lit) {
   }
   console.log("Interface: propagate " + atom + " (" + lit + ")");
   atom_obj = parse_binary_atom(atom);
-  if (atom_obj != null && atom_obj.positive) {
+  if (atom_obj != null && !atom_obj.auxiliary && atom_obj.positive) {
     binary_set_cell_value(atom_obj.i, atom_obj.j, atom_obj.val);
   }
   binary_render_board();
@@ -63,7 +63,7 @@ function interface_undo(lit) {
   }
   console.log("Interface: undo " + atom + " (" + lit + ")");
   atom_obj = parse_binary_atom(atom);
-  if (atom_obj != null && atom_obj.positive) {
+  if (atom_obj != null && !atom_obj.auxiliary && atom_obj.positive) {
     binary_set_cell_value(atom_obj.i, atom_obj.j, null);
   }
   binary_render_board();
