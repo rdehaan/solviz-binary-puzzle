@@ -133,7 +133,7 @@ function interface_before_start() {
 }
 
 function watched_predicates() {
-  return "solution";
+  return "solution *";
 }
 
 function interface_start() {
@@ -220,22 +220,19 @@ function parse_binary_atom(atom) {
       positive: false,
       auxiliary: false,
     }
-  } else if (atom.startsWith("aux(")) {
-    v = parseInt(parts[1]);
+  } else if (atom.startsWith("-")) {
+    name = atom.slice(1);
     return {
-      v: v,
-      positive: true,
-      auxiliary: true,
-    }
-  } else if (atom.startsWith("-aux(")) {
-    v = parseInt(parts[1]);
-    return {
-      v: v,
+      name: name,
       positive: false,
       auxiliary: true,
     }
   } else {
-    return null;
+    return {
+      name: atom,
+      positive: true,
+      auxiliary: true,
+    }
   }
 }
 
@@ -324,9 +321,9 @@ function decision_to_text(atom) {
     } else if (!atom_obj.auxiliary && !atom_obj.positive) {
       return "- Branched by ruling out value " + atom_obj.val + " for cell R" + (atom_obj.i+1) + "C" + (atom_obj.j+1);
     } else if (atom_obj.auxiliary && atom_obj.positive) {
-      return "- Branched by setting auxiliary variable " + atom_obj.v + " to true";
+      return "- Branched by setting auxiliary variable " + atom_obj.name + " to true";
     } else if (atom_obj.auxiliary && !atom_obj.positive) {
-      return "- Branched by setting auxiliary variable " + atom_obj.v + " to false";
+      return "- Branched by setting auxiliary variable " + atom_obj.name + " to false";
     }
   }
 }
