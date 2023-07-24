@@ -116,6 +116,7 @@ function interface_on_model() {
 
 function interface_before_start() {
   console.log("Interface: before start");
+  lit_to_atom = {};
   model_found = false;
   binary_render_board();
   hidden_program = "";
