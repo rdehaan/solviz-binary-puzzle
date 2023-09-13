@@ -29,7 +29,25 @@ See LICENSE.md.
         </header>
 
         <div class="post-content">
-          <div class="center">
+          <div>
+
+            <p>
+              This demonstration visualizes how the ASP solver <a href="https://potassco.org/clingo/">clingo</a> finds solutions for <a href="https://binarypuzzle.com/">binary puzzles</a>, when using different encodings of the rules into ASP.
+            </p>
+
+            <p>
+              Select an encoding (or edit one, or enter your own).<br />
+              Select an example Sudoku puzzle (or enter your own).<br />
+              Optionally, enter some solver settings.<br />
+              Select the demonstration speed, and click "Run!" to start.
+            </p>
+
+            <p>
+              When the demonstration runs, the current state of the search is depicted on the puzzle board, and
+              the current queue of branching choices is shown below the board.
+            </p>
+
+            <p>&nbsp;</p>
 
             <p>
               <b>Problem encoding:</b>
@@ -54,6 +72,8 @@ See LICENSE.md.
             </ul>
 
             <pre id="input"></pre>
+
+            <div>&nbsp;</div>
 
             <p>
               <b>Binary puzzle:</b>
@@ -170,6 +190,9 @@ See LICENSE.md.
 
             <div>&nbsp;</div>
 
+          </div>
+          <div class="center">
+
             <p>
               <b>Control:</b>
             </p>
@@ -201,6 +224,9 @@ See LICENSE.md.
             </p>
 
             <div id="binary" class="binary-board"></div>
+
+          </div>
+          <div>
 
             <div>&nbsp;</div>
 
